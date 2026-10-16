@@ -3628,7 +3628,7 @@ select.acd-in{color:#efeeee;background-color:#090707}.acd-in option{background:#
                         <div id="hrTodoWriterBox" class="hidden bg-black p-4 border border-zinc-900 space-y-2.5 text-xs">
                             <input type="text" id="hrTodoContentInput" placeholder="예: 신규 지원자 3명 면접 일정 조율" class="w-full bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-white focus:outline-none">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-                                <input type="text" id="hrTodoAssigneeInput" placeholder="담당자 (선택, 예: 킴유주)" class="w-full bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-white focus:outline-none">
+                                <input type="text" id="hrTodoAssigneeInput" placeholder="담당자 (선택, 예: 대부)" class="w-full bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-white focus:outline-none">
                                 <select id="hrTodoPrioritySelect" class="w-full bg-zinc-900 border border-zinc-800 px-3.5 py-2.5 text-white focus:outline-none">
                                     <option value="보통">보통</option>
                                     <option value="긴급">긴급</option>
@@ -5066,7 +5066,7 @@ select.acd-in{color:#efeeee;background-color:#090707}.acd-in option{background:#
                             <h3 class="text-base font-black text-zinc-100">인물 조회</h3>
                             <p class="text-[11px] text-zinc-500 mt-0.5">이름으로 검색하면 출근·인사평가·시보이력·징계·보상 기록을 한 번에 모아 보여줍니다</p>
                         </div>
-                        <input type="text" id="personLookupInput" oninput="runPersonLookup(this.value)" placeholder="이름을 입력하세요 (예: 킴유주)" class="w-full bg-black border border-zinc-800 px-3.5 py-2.5 text-white text-xs focus:outline-none">
+                        <input type="text" id="personLookupInput" oninput="runPersonLookup(this.value)" placeholder="이름을 입력하세요 (예: 대부)" class="w-full bg-black border border-zinc-800 px-3.5 py-2.5 text-white text-xs focus:outline-none">
                         <div id="personLookupResult" class="space-y-3">
                             <p class="text-xs text-zinc-500 text-center py-8">이름을 입력해주세요.</p>
                         </div>
@@ -6238,7 +6238,7 @@ select.acd-in{color:#efeeee;background-color:#090707}.acd-in option{background:#
                     [{ key: 'section', label: '인사 계장' }],
                     [{ key: 'staff', label: '인사 담당' }, { key: 'recruit', label: '채용 담당' }, { key: 'training', label: '교육 담당' }, { key: 'admin', label: '인사 행정' }]
                 ],
-                defaults: { chief: '킴유주', section: '백연', staff: '', recruit: '', training: '', admin: '박춘봉' }
+                defaults: { chief: '대부', section: '백연', staff: '', recruit: '', training: '', admin: '박춘봉' }
             },
             traffic: {
                 dbPath: 'dept_roles/traffic',
@@ -6556,11 +6556,11 @@ select.acd-in{color:#efeeee;background-color:#090707}.acd-in option{background:#
             renderDisasterTemplates();
             renderDisasterCallsigns();
             populateTransferTargetRankSelect();
-            db.ref('users/킴유주').once('value', (snapshot) => {
+            db.ref('users/대부').once('value', (snapshot) => {
                 if (!snapshot.exists()) {
-                    db.ref('users/킴유주').set({
+                    db.ref('users/대부').set({
                         pw: '1234',
-                        name: 'ADMIN',
+                        name: '대부',
                         rank: 'ADMIN',
                         dept: '없음',
                         phone: '010-0000-0000',
@@ -6570,7 +6570,7 @@ select.acd-in{color:#efeeee;background-color:#090707}.acd-in option{background:#
                     });
                 } else {
                     // 이름(name)은 관리자가 자유롭게 바꿀 수 있도록 더 이상 강제로 덮어쓰지 않음
-                    db.ref('users/킴유주').update({ rank: 'ADMIN', dept: '없음', isAdmin: true });
+                    db.ref('users/대부').update({ rank: 'ADMIN', dept: '없음', isAdmin: true });
                 }
             });
             db.ref('users/kim').remove();
@@ -6586,7 +6586,7 @@ select.acd-in{color:#efeeee;background-color:#090707}.acd-in option{background:#
                     initialCheckDone = true;
                     const savedUserId = sessionStorage.getItem('climax_logged_in_user') || localStorage.getItem('climax_logged_in_user');
                     if (savedUserId && !currentUser) {
-                        const targetId = (savedUserId === 'admin') ? '킴유주' : savedUserId;
+                        const targetId = (savedUserId === 'admin') ? '대부' : savedUserId;
                         if (allUsersCache[targetId]) {
                             currentUser = allUsersCache[targetId];
                             currentUserId = targetId;
@@ -8127,7 +8127,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
                 <div class="dx-p" style="margin-top:6px;font-weight:700">${closingText}</div>
                 <div class="dx-close" style="position:relative;margin:auto 0 2px;padding-top:6px">
                     <div class="dt" style="margin:4px 0 0">${escHtml(d)}</div><div class="org">BLACKOUT</div>
-                    <div class="sg"><div class="rule"></div><div class="who">치안총감 킴유주</div><div class="rule r"></div><div style="width:84px"></div></div>
+                    <div class="sg"><div class="rule"></div><div class="who">치안총감 대부</div><div class="rule r"></div><div style="width:84px"></div></div>
                     <img src="${DX_SEAL}" alt="직인" style="position:absolute;right:6px;bottom:2px;width:84px;height:84px">
                 </div>
             </div>`;
@@ -8158,7 +8158,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             const data = generateTransferData();
             const text = generateTransferText(data);
             const timestamp = new Date().toLocaleString('ko-KR');
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
 
             db.ref('transfer_notices').push({ text, ...data, author, timestamp, createdAt: new Date().getTime() }, (error) => {
                 if (!error) {
@@ -8194,7 +8194,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             if (!container) return;
 
             const rank = currentUser ? (currentUser.rank || 'PLAYER') : 'PLAYER';
-            const isAdminUser = currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '킴유주') : false;
+            const isAdminUser = currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '대부') : false;
 
             let html = '';
             [...transferNoticesCache].sort((a, b) => ((b.createdAt || 0) - (a.createdAt || 0)) || String(b.id).localeCompare(String(a.id))).forEach(item => {
@@ -8258,7 +8258,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             if (avatarEl) avatarEl.innerText = (currentUser.name || '-').charAt(0);
 
             const myRank = currentUser.rank || 'PLAYER';
-            const isAdminUser = currentUser.isAdmin || myRank === 'ADMIN' || myRank === '치안총감' || currentUserId === '킴유주';
+            const isAdminUser = currentUser.isAdmin || myRank === 'ADMIN' || myRank === '치안총감' || currentUserId === '대부';
             const resetBtnEl = document.getElementById('myPageResetLogBtn');
             if (resetBtnEl) resetBtnEl.classList.toggle('hidden', !isAdminUser);
 
@@ -8565,7 +8565,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             if (!panel || !listContainer) return;
 
             const rank = currentUser ? (currentUser.rank || 'PLAYER') : 'PLAYER';
-            const isAdminUser = currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '킴유주') : false;
+            const isAdminUser = currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '대부') : false;
 
             if (!isAdminUser) {
                 panel.classList.add('hidden');
@@ -8754,7 +8754,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
 
         // 매뉴얼 항목이 새로 등록/수정될 때마다 자동으로 호출 - 3주간 NEW 뱃지 노출
         function markManualUpdated() {
-            const updatedBy = currentUser ? currentUser.name : '킴유주';
+            const updatedBy = currentUser ? currentUser.name : '대부';
             db.ref('siteConfig/manualUpdate').set({ timestamp: new Date().getTime(), updatedBy });
         }
 
@@ -8896,14 +8896,14 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
 
         function isCurrentUserAdmin() {
             const rank = currentUser ? (currentUser.rank || 'PLAYER') : 'PLAYER';
-            return currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '킴유주') : false;
+            return currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '대부') : false;
         }
 
         // 최종관리자(메인관리자): ADMIN 계급 고정 계정만 해당. 시스템 유지보수·포인트 정책·관리자 권한 부여 등
         // "로직/구조" 관련 항목은 이 권한을 가진 계정만 접근 가능합니다. (그 외 일반 관리 업무는 서브관리자도 가능)
         function isSuperAdmin() {
             if (!currentUser) return false;
-            return currentUser.rank === 'ADMIN' || currentUserId === '킴유주';
+            return currentUser.rank === 'ADMIN' || currentUserId === '대부';
         }
 
         // 회계관리자: 최종관리자/서브관리자와 별도의 세번째 등급. "회계관리자 권한" 체크(hasForecastAuth)를
@@ -8944,7 +8944,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             const content = document.getElementById('manualContentInput').value.trim();
             if (!title || !content) { alert('제목과 내용을 모두 입력해주세요.'); return; }
 
-            const updatedBy = currentUser ? currentUser.name : '킴유주';
+            const updatedBy = currentUser ? currentUser.name : '대부';
             const now = new Date().getTime();
             const data = { title, content, updatedAt: now, updatedBy };
 
@@ -9249,7 +9249,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
                 return;
             }
 
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const rank = currentUser ? (currentUser.rank || 'PLAYER') : 'PLAYER';
             const note = document.getElementById('wantedNote').value.trim();
             const now = new Date().getTime();
@@ -9314,7 +9314,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
 
             const updates = {
                 status: 'captured',
-                resolvedBy: currentUser ? currentUser.name : '킴유주',
+                resolvedBy: currentUser ? currentUser.name : '대부',
                 resolvedAt: new Date().getTime()
             };
             // 검거 완료 시 용량이 큰 사진(base64) 데이터만 삭제하고, 나머지 텍스트 정보(인상착의 설명, 죄목 등)는 그대로 남긴다.
@@ -9406,7 +9406,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
                 charge,
                 citizenNumber: person.citizenNumber || '',
                 items: person.items || null,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -9481,7 +9481,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             if (!input) return;
             const text = input.value.trim();
             if (!text) return;
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
 
             db.ref(`cold_cases/${caseId}/comments`).push({
                 text, author, timestamp: new Date().toLocaleString('ko-KR'), createdAt: new Date().getTime()
@@ -9830,7 +9830,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             if (!confirm(`[${name}]의 경비처리요청(${amount.toLocaleString()}원)을 승인하시겠습니까?`)) return;
             db.ref('expense_requests/' + id).update({
                 status: 'approved',
-                approvedBy: currentUser ? currentUser.name : '킴유주',
+                approvedBy: currentUser ? currentUser.name : '대부',
                 approvedAt: new Date().toLocaleString('ko-KR'),
                 statusChangedTs: Date.now()
             }, (error) => {
@@ -9843,7 +9843,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             if (!confirm(`[${name}]의 경비처리요청을 반려하시겠습니까?`)) return;
             db.ref('expense_requests/' + id).update({
                 status: 'rejected',
-                approvedBy: currentUser ? currentUser.name : '킴유주',
+                approvedBy: currentUser ? currentUser.name : '대부',
                 approvedAt: new Date().toLocaleString('ko-KR'),
                 statusChangedTs: Date.now()
             }, (error) => {
@@ -9859,7 +9859,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
                 db.ref('expense_requests/' + id).transaction((cur) => {
                     if (!cur || cur.status === 'paid') return;
                     cur.status = 'paid';
-                    cur.paidBy = currentUser ? currentUser.name : '킴유주';
+                    cur.paidBy = currentUser ? currentUser.name : '대부';
                     cur.paidAt = new Date().toLocaleString('ko-KR');
                     cur.statusChangedTs = Date.now();
                     return cur;
@@ -10166,7 +10166,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
 
             db.ref('audit_reports').push({
                 content, targetName, hasPhoto, hasVideo, photoEvidence,
-                reporterName: currentUser ? currentUser.name : '킴유주',
+                reporterName: currentUser ? currentUser.name : '대부',
                 memo: '',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
@@ -10600,7 +10600,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
 
             db.ref(`audit_reports/${reportId}/comments`).push({
                 text,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 timestamp: new Date().toLocaleString('ko-KR'),
                 createdAt: new Date().getTime()
             }, (error) => {
@@ -11002,7 +11002,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
 
             const updates = {};
             updates[`audit_reports/${id}/finalStamp`] = stampType;
-            updates[`audit_reports/${id}/stampedBy`] = currentUser ? currentUser.name : '킴유주';
+            updates[`audit_reports/${id}/stampedBy`] = currentUser ? currentUser.name : '대부';
             updates[`audit_reports/${id}/stampedAt`] = new Date().toLocaleString('ko-KR');
             updates[`audit_reports/${id}/stampedAtTs`] = Date.now();
 
@@ -11012,7 +11012,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
                 if (!rep || !rep.targetName) {
                     alert('벌금을 자동 등록하려면 먼저 "대상자(피조사자)"를 지정해주세요. 처분은 확정되지만 벌금은 등록되지 않습니다.');
                 } else {
-                    const author = currentUser ? currentUser.name : '킴유주';
+                    const author = currentUser ? currentUser.name : '대부';
                     const now = new Date();
                     const newKey = db.ref('rewards_fines').push().key;
                     updates[`rewards_fines/${newKey}`] = {
@@ -11096,7 +11096,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             if (!amount || amount <= 0) { alert('보상금액을 입력해주세요.'); return; }
             if (!confirm(`[${r.reporterName || '외부민원인'}]에게 보상금 ${amount.toLocaleString()}원을 송금완료 처리하시겠습니까?\n경비처리요청에 [민원처리]로 등록되고, 경찰 계좌에서 즉시 차감됩니다.`)) return;
 
-            const payerName = currentUser ? currentUser.name : '킴유주';
+            const payerName = currentUser ? currentUser.name : '대부';
             const now = new Date();
             const expenseRef = db.ref('expense_requests').push();
             expenseRef.set({
@@ -11601,7 +11601,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             db.ref('statement_reports').push({
                 targetUid, targetName, reason,
                 content: '', submitted: false, status: null,
-                requestedBy: currentUser ? currentUser.name : '킴유주',
+                requestedBy: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -11644,7 +11644,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
             db.ref('statement_reports').push({
                 targetUid, targetName, reason: reason.trim(),
                 content: '', submitted: false, status: null,
-                requestedBy: currentUser ? currentUser.name : '킴유주',
+                requestedBy: currentUser ? currentUser.name : '대부',
                 linkedAuditReportId: reportId,
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
@@ -11701,7 +11701,7 @@ ${data.name} 순경은 앞으로 ${data.newDept} 소속 경찰관으로서 블�
 
             const updates = {
                 status: decision,
-                decidedBy: currentUser ? currentUser.name : '킴유주',
+                decidedBy: currentUser ? currentUser.name : '대부',
                 decidedAt: new Date().toLocaleString('ko-KR'),
                 decidedAtTs: new Date().getTime()
             };
@@ -12394,7 +12394,7 @@ ${s.submittedDateStr || ''}`;
                     return;
                 }
 
-                data.registeredBy = currentUser ? currentUser.name : '킴유주';
+                data.registeredBy = currentUser ? currentUser.name : '대부';
                 data.createdAt = new Date().getTime();
 
                 db.ref('audit_case_db').push(data, (error) => {
@@ -12679,13 +12679,13 @@ ${s.submittedDateStr || ''}`;
             db.ref('suggestions').push({
                 content,
                 isAnonymous,
-                authorName: currentUser ? currentUser.name : '킴유주',
+                authorName: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
                 release();
                 if (!error) {
-                    addSystemLog('건의사항', `건의사항 등록 (${isAnonymous ? '익명' : (currentUser ? currentUser.name : '킴유주')})`);
+                    addSystemLog('건의사항', `건의사항 등록 (${isAnonymous ? '익명' : (currentUser ? currentUser.name : '대부')})`);
                     document.getElementById('suggestionContentInput').value = '';
                     alert('건의사항이 등록되었습니다.');
                 }
@@ -12725,7 +12725,7 @@ ${s.submittedDateStr || ''}`;
 
 
         function signOath() {
-            const name = currentUser ? currentUser.name : '킴유주';
+            const name = currentUser ? currentUser.name : '대부';
             const rank = currentUser ? (currentUser.rank || 'PLAYER') : 'PLAYER';
             if (!confirm('신임 경찰관 선서에 서명하시겠습니까?')) return;
 
@@ -13087,7 +13087,7 @@ ${s.submittedDateStr || ''}`;
             const remaining = grandTotal - usedTotal;
             if (!confirm(`[${item.name}] 구매에 전체 누적 포인트 ${cost.toLocaleString()}점을 사용하시겠습니까?\n(구매 가능 잔여 ${remaining.toLocaleString()}점 → 구매 후 ${(remaining - cost).toLocaleString()}점)`)) return;
 
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const now = new Date();
             db.ref('point_exchange_logs').push({
                 item: `[포인트 상점] ${item.name}`,
@@ -13413,7 +13413,7 @@ ${s.submittedDateStr || ''}`;
                 name, note,
                 photo: applicantPhotoData || null,
                 status: 'pending',
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -13449,7 +13449,7 @@ ${s.submittedDateStr || ''}`;
             db.ref('applicants/' + id).update({
                 status: 'approved',
                 schedule: schedule.trim(),
-                decidedBy: currentUser ? currentUser.name : '킴유주',
+                decidedBy: currentUser ? currentUser.name : '대부',
                 decidedAt: new Date().toLocaleString('ko-KR')
             }, (error) => {
                 if (!error) addSystemLog('지원자관리', `지원자 승인 처리 (${name})`);
@@ -13464,7 +13464,7 @@ ${s.submittedDateStr || ''}`;
             db.ref('applicants/' + id).update({
                 status: 'rejected',
                 reason: reason.trim(),
-                decidedBy: currentUser ? currentUser.name : '킴유주',
+                decidedBy: currentUser ? currentUser.name : '대부',
                 decidedAt: new Date().toLocaleString('ko-KR')
             }, (error) => {
                 if (!error) addSystemLog('지원자관리', `지원자 거절 처리 (${name})`);
@@ -13543,7 +13543,7 @@ ${s.submittedDateStr || ''}`;
 
             db.ref('applicants/' + applicantId + '/evaluation').set({
                 age, motivation, ratings, comment,
-                evaluatedBy: currentUser ? currentUser.name : '킴유주',
+                evaluatedBy: currentUser ? currentUser.name : '대부',
                 evaluatedAt: new Date().toLocaleString('ko-KR')
             }, (error) => {
                 if (!error) {
@@ -13701,7 +13701,7 @@ ${s.submittedDateStr || ''}`;
             if (!confirm(`[${name}] 지원자를 최종 ${label} 처리하시겠습니까?`)) return;
             db.ref('applicants/' + id).update({
                 finalDecision: decision,
-                finalizedBy: currentUser ? currentUser.name : '킴유주',
+                finalizedBy: currentUser ? currentUser.name : '대부',
                 finalizedAt: new Date().toLocaleString('ko-KR')
             }, (error) => {
                 if (!error) addSystemLog('지원자관리', `지원자 최종 ${label} 처리 (${name})`);
@@ -13803,7 +13803,7 @@ ${s.submittedDateStr || ''}`;
                     db.ref('probation_history').push({
                         name, uid, mentorName: (p && p.mentorName) || '', startDate: (p && (p.periodLabel || p.startDate)) || '',
                         result: 'promoted',
-                        processedBy: currentUser ? currentUser.name : '킴유주',
+                        processedBy: currentUser ? currentUser.name : '대부',
                         createdAt: new Date().getTime(),
                         timestamp: new Date().toLocaleString('ko-KR')
                     });
@@ -13821,7 +13821,7 @@ ${s.submittedDateStr || ''}`;
             db.ref('probation_history').push({
                 name, uid: p ? p.uid : '', mentorName: (p && p.mentorName) || '', startDate: (p && (p.periodLabel || p.startDate)) || '',
                 result: 'dismissed',
-                processedBy: currentUser ? currentUser.name : '킴유주',
+                processedBy: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             });
@@ -14476,7 +14476,7 @@ ${s.submittedDateStr || ''}`;
 
             db.ref('simple_docs/' + docKey).set({
                 content,
-                updatedBy: currentUser ? currentUser.name : '킴유주',
+                updatedBy: currentUser ? currentUser.name : '대부',
                 updatedAt: new Date().getTime()
             }, (error) => {
                 if (!error) {
@@ -14516,7 +14516,7 @@ ${s.submittedDateStr || ''}`;
 
             db.ref(cfg.dbPath).push({
                 title, content, isNotice,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -14558,7 +14558,7 @@ ${s.submittedDateStr || ''}`;
             db.ref(`${cfg.dbPath}/${id}`).update({
                 title, content,
                 editedAt: new Date().toLocaleString('ko-KR'),
-                editedBy: currentUser ? currentUser.name : '킴유주'
+                editedBy: currentUser ? currentUser.name : '대부'
             }, (error) => {
                 if (!error) {
                     addSystemLog('게시판', `${boardKey} 게시글 수정 (${title})`);
@@ -14575,7 +14575,7 @@ ${s.submittedDateStr || ''}`;
             if (!text) return;
             db.ref(`${cfg.dbPath}/${postId}/comments`).push({
                 text,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 timestamp: new Date().toLocaleString('ko-KR'),
                 createdAt: new Date().getTime()
             }, (error) => {
@@ -14755,7 +14755,7 @@ ${s.submittedDateStr || ''}`;
             if (!content) { alert('내용을 입력해주세요.'); return; }
 
             const cfg = MULTI_MANUAL_CONFIGS[sysKey];
-            const updatedBy = currentUser ? currentUser.name : '킴유주';
+            const updatedBy = currentUser ? currentUser.name : '대부';
             const data = { subtitle, content, updatedAt: new Date().getTime(), updatedBy };
 
             const finish = (error) => {
@@ -14994,7 +14994,7 @@ ${s.submittedDateStr || ''}`;
             const recordData = {
                 name, contact, type, item, amount,
                 paid: false,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             };
@@ -15028,7 +15028,7 @@ ${s.submittedDateStr || ''}`;
             db.ref('rewards_fines/' + id).transaction((cur) => {
                 if (!cur || cur.paid) return; // 존재하지 않거나 이미 처리됨 -> 중단
                 cur.paid = true;
-                cur.paidBy = currentUser ? currentUser.name : '킴유주';
+                cur.paidBy = currentUser ? currentUser.name : '대부';
                 cur.paidAt = new Date().toLocaleString('ko-KR');
                 cur.paidAtTs = Date.now();
                 return cur;
@@ -15055,7 +15055,7 @@ ${s.submittedDateStr || ''}`;
             db.ref('rewards_fines/' + id).transaction((cur) => {
                 if (!cur || cur.paid) return;
                 cur.paid = true;
-                cur.paidBy = currentUser ? currentUser.name : '킴유주';
+                cur.paidBy = currentUser ? currentUser.name : '대부';
                 cur.paidAt = new Date().toLocaleString('ko-KR');
                 cur.paidAtTs = Date.now();
                 return cur;
@@ -15248,7 +15248,7 @@ ${s.submittedDateStr || ''}`;
             if (!confirm(`[${name}]님의 미지급 내역 ${unpaid.length}건을 한 번에 지급/납부완료 처리하시겠습니까?\n\n${lines.join('\n')}`)) return;
 
             if (!withPaymentLock('rewardbatch_' + name, (release) => {
-                const paidBy = currentUser ? currentUser.name : '킴유주';
+                const paidBy = currentUser ? currentUser.name : '대부';
                 const paidAt = new Date().toLocaleString('ko-KR');
                 const paidAtTs = Date.now();
 
@@ -15428,7 +15428,7 @@ ${s.submittedDateStr || ''}`;
             db.ref('citizen_rewards').push({
                 name, contact, items, totalAmount: total,
                 status: 'pending',
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -15458,7 +15458,7 @@ ${s.submittedDateStr || ''}`;
                 db.ref('citizen_rewards/' + id).transaction((cur) => {
                     if (!cur || cur.status === 'paid') return;
                     cur.status = 'paid';
-                    cur.processedBy = currentUser ? currentUser.name : '킴유주';
+                    cur.processedBy = currentUser ? currentUser.name : '대부';
                     cur.processedAt = new Date().toLocaleString('ko-KR');
                     cur.processedAtTs = Date.now();
                     return cur;
@@ -15479,7 +15479,7 @@ ${s.submittedDateStr || ''}`;
             if (!confirm(`[${name}]의 시민포상금 신청을 지급불가 처리하시겠습니까?`)) return;
             db.ref('citizen_rewards/' + id).update({
                 status: 'denied',
-                processedBy: currentUser ? currentUser.name : '킴유주',
+                processedBy: currentUser ? currentUser.name : '대부',
                 processedAt: new Date().toLocaleString('ko-KR'),
                 processedAtTs: Date.now()
             }, (error) => {
@@ -15636,7 +15636,7 @@ ${s.submittedDateStr || ''}`;
                     db.ref('police_account_transactions').push({
                         amount, reason,
                         balanceAfter: snapshot ? snapshot.val() : null,
-                        author: currentUser ? currentUser.name : '킴유주',
+                        author: currentUser ? currentUser.name : '대부',
                         createdAt: new Date().getTime(),
                         timestamp: new Date().toLocaleString('ko-KR')
                     });
@@ -15824,7 +15824,7 @@ ${s.submittedDateStr || ''}`;
 
             db.ref('recurring_expenses').push({
                 name, amount, cycle,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -15856,7 +15856,7 @@ ${s.submittedDateStr || ''}`;
 
             db.ref('point_milestone_tiers').push({
                 threshold, amount,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime()
             }, (error) => {
                 if (!error) {
@@ -16692,7 +16692,7 @@ ${s.submittedDateStr || ''}`;
                         amount: diff,
                         reason: `[관리자 잔액 직접 수정] ${reason}`,
                         balanceAfter: newValue,
-                        author: currentUser ? currentUser.name : '킴유주',
+                        author: currentUser ? currentUser.name : '대부',
                         createdAt: new Date().getTime(),
                         timestamp: new Date().toLocaleString('ko-KR')
                     });
@@ -18245,7 +18245,7 @@ ${s.submittedDateStr || ''}`;
             const todoData = {
                 content, assignee, priority,
                 done: false,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             };
@@ -18262,7 +18262,7 @@ ${s.submittedDateStr || ''}`;
         function toggleHrTodoDone(id, done) {
             if (!isHrOrAdmin()) { alert('처리는 인사과 소속 또는 관리자만 가능합니다.'); return; }
             const updateData = done
-                ? { done: true, doneAt: new Date().getTime(), doneBy: currentUser ? currentUser.name : '킴유주' }
+                ? { done: true, doneAt: new Date().getTime(), doneBy: currentUser ? currentUser.name : '대부' }
                 : { done: false, doneAt: null, doneBy: null };
             db.ref('hr_todos/' + id).update(updateData, (error) => {
                 if (!error) addSystemLog('인사과', `TODO ${done ? '완료' : '진행중으로 되돌림'} 처리`);
@@ -18360,7 +18360,7 @@ ${s.submittedDateStr || ''}`;
                 targetUid, targetName, targetRank, mentorUids, mentorNames,
                 submissions: {},
                 finalDecision: null,
-                registeredBy: currentUser ? currentUser.name : '킴유주',
+                registeredBy: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -18419,7 +18419,7 @@ ${s.submittedDateStr || ''}`;
             const missing = EVAL_CATEGORIES.find(c => !ratings[c.key]);
             if (missing) { alert(`${missing.label} 항목을 별점으로 평가해주세요.`); return; }
 
-            const mentorName = currentUser ? currentUser.name : '킴유주';
+            const mentorName = currentUser ? currentUser.name : '대부';
             db.ref(`personnel_evaluations/${id}/submissions/${currentUserId}`).set({
                 mentorName, memo, ratings,
                 submittedAt: new Date().toLocaleString('ko-KR')
@@ -18437,7 +18437,7 @@ ${s.submittedDateStr || ''}`;
                 if (!confirm(`[${targetName}]을(를) 최종 "해임" 처리하시겠습니까?`)) return;
                 db.ref('personnel_evaluations/' + id).update({
                     finalDecision: decision,
-                    decidedBy: currentUser ? currentUser.name : '킴유주',
+                    decidedBy: currentUser ? currentUser.name : '대부',
                     decidedAt: new Date().toLocaleString('ko-KR'),
                     decidedAtTs: Date.now()
                 }, (error) => {
@@ -18451,7 +18451,7 @@ ${s.submittedDateStr || ''}`;
                 if (!confirm(`[${targetName}]의 인사평가 결과를 "진급"으로 표시하시겠습니까?\n\n※ 표시만 남습니다. 계급 변경·인사발령은 일어나지 않으며, 진급시험을 등록해서 진행해주세요.`)) return;
                 db.ref('personnel_evaluations/' + id).update({
                     finalDecision: 'promoted',
-                    decidedBy: currentUser ? currentUser.name : '킴유주',
+                    decidedBy: currentUser ? currentUser.name : '대부',
                     decidedAt: new Date().toLocaleString('ko-KR'),
                     decidedAtTs: Date.now()
                 }, (error) => {
@@ -18469,7 +18469,7 @@ ${s.submittedDateStr || ''}`;
             db.ref('personnel_evaluations/' + id).update({
                 finalDecision: decision,
                 finalRank: newRank.trim(),
-                decidedBy: currentUser ? currentUser.name : '킴유주',
+                decidedBy: currentUser ? currentUser.name : '대부',
                 decidedAt: new Date().toLocaleString('ko-KR'),
                 decidedAtTs: Date.now()
             }, (error) => {
@@ -18794,7 +18794,7 @@ ${s.submittedDateStr || ''}`;
                 targetUid, targetName, targetRank,
                 answers: { q1: '', q2: '', q3: '' },
                 submitted: false,
-                assignedBy: currentUser ? currentUser.name : '킴유주',
+                assignedBy: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -18855,7 +18855,7 @@ ${s.submittedDateStr || ''}`;
             if (!data) return;
             db.ref('transfer_notices').push({
                 text: generateTransferText(data), ...data,
-                author: (currentUser ? currentUser.name : '킴유주') + ` (${source} 자동등록)`,
+                author: (currentUser ? currentUser.name : '대부') + ` (${source} 자동등록)`,
                 autoRegistered: true, source,
                 timestamp: new Date().toLocaleString('ko-KR'), createdAt: Date.now()
             }, (error) => {
@@ -18906,7 +18906,7 @@ ${s.submittedDateStr || ''}`;
             db.ref('promo_exam_logs').push({
                 targetUid, targetName, decision, answers,
                 questionsSnapshot: (examRecord && examRecord.questionsSnapshot) || DEFAULT_PROMO_EXAM_QUESTIONS.map(q => ({ ...q })),
-                decidedBy: currentUser ? currentUser.name : '킴유주',
+                decidedBy: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -18923,7 +18923,7 @@ ${s.submittedDateStr || ''}`;
                             else {
                                 // 이미 시보가 아닌 계급이면 계급은 건드리지 않고 관리 목록 정리·이력 기록만
                                 const p = __probRecs[0];
-                                db.ref('probation_history').push({ name: targetName, uid: targetUid, mentorName: p.mentorName || '', startDate: p.periodLabel || p.startDate || '', result: 'promoted', processedBy: currentUser ? currentUser.name : '킴유주', createdAt: Date.now(), timestamp: new Date().toLocaleString('ko-KR') });
+                                db.ref('probation_history').push({ name: targetName, uid: targetUid, mentorName: p.mentorName || '', startDate: p.periodLabel || p.startDate || '', result: 'promoted', processedBy: currentUser ? currentUser.name : '대부', createdAt: Date.now(), timestamp: new Date().toLocaleString('ko-KR') });
                                 db.ref('probation_records/' + p.id).remove();
                                 if (deptChoice) db.ref(`users/${targetUid}`).update({ dept: deptChoice });
                                 addSystemLog('시보기간관리', `시보진급시험 진급에 따라 시보기간 기록 정리 (${targetName})`);
@@ -19223,7 +19223,7 @@ ${s.submittedDateStr || ''}`;
                 questions: questionsSnapshot,
                 answers,
                 submitted: false,
-                assignedBy: currentUser ? currentUser.name : '킴유주',
+                assignedBy: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -19283,7 +19283,7 @@ ${s.submittedDateStr || ''}`;
 
             db.ref('general_promo_exam_logs').push({
                 targetUid, targetName, targetRank, decision, questions, answers,
-                decidedBy: currentUser ? currentUser.name : '킴유주',
+                decidedBy: currentUser ? currentUser.name : '대부',
                 createdAt: new Date().getTime(),
                 timestamp: new Date().toLocaleString('ko-KR')
             }, (error) => {
@@ -19550,7 +19550,7 @@ ${s.submittedDateStr || ''}`;
             const dateStr = `${now.getFullYear()}.${String(now.getMonth() + 1).padStart(2, '0')}.${String(now.getDate()).padStart(2, '0')}`;
             const reason = document.getElementById('weaponReason').value.trim() || '총기 사용이 예상되는 강,절도 출동';
 
-            const name = currentUser ? currentUser.name : '킴유주';
+            const name = currentUser ? currentUser.name : '대부';
             const rank = currentUser ? (currentUser.rank || 'ADMIN') : 'ADMIN';
 
             let itemsByCategory = {};
@@ -19632,7 +19632,7 @@ ${s.submittedDateStr || ''}`;
                     </div>
                     <div class="grid grid-cols-2 gap-2 text-zinc-200">
                         <p><strong class="text-zinc-400">불출자:</strong> ${data.rank} ${data.name}</p>
-                        <p><strong class="text-zinc-400">담당확인:</strong> 치안총감 킴유주</p>
+                        <p><strong class="text-zinc-400">담당확인:</strong> 치안총감 대부</p>
                     </div>
                     <div>
                         <p class="text-[11px] text-zinc-400 font-medium">불출 사유</p>
@@ -19666,7 +19666,7 @@ ${s.submittedDateStr || ''}`;
             const textToCopy = `[블랙아웃 무기 불출 대장]
 ㆍ 불출일시: ${data.dateStr}
 ㆍ 불출자: ${data.rank} ${data.name}
-ㆍ 담당확인: 치안총감 킴유주
+ㆍ 담당확인: 치안총감 대부
 ㆍ 불출사유: ${data.reason}
 ${itemLines}
 ㆍ 비고: ${data.note || '없음'}`;
@@ -19864,7 +19864,7 @@ ${itemLines}
 
         function generateInvestigationReportData() {
             const now = new Date();
-            const name = currentUser ? currentUser.name : '킴유주';
+            const name = currentUser ? currentUser.name : '대부';
             const rank = currentUser ? (currentUser.rank || 'PLAYER') : 'PLAYER';
             const dept = currentUser ? (currentUser.dept || '형사과') : '형사과';
 
@@ -19895,19 +19895,19 @@ ${itemLines}
             };
         }
 
-        // 1차 승인(형사과 승인) 권한: 형사과 소속 관리자, 또는 최상위 관리자(ADMIN 계급·킴유주)
+        // 1차 승인(형사과 승인) 권한: 형사과 소속 관리자, 또는 최상위 관리자(ADMIN 계급·대부)
         function canApproveInvestigationReportAsChief() {
             if (!currentUser) return false;
             const rank = currentUser.rank || '';
-            if (rank === 'ADMIN' || currentUserId === '킴유주') return true;
+            if (rank === 'ADMIN' || currentUserId === '대부') return true;
             return !!currentUser.isAdmin && currentUser.dept === '형사과';
         }
 
-        // 2차(최종) 승인 권한: 치안총감 계급자, 또는 최상위 관리자(ADMIN 계급·킴유주)
+        // 2차(최종) 승인 권한: 치안총감 계급자, 또는 최상위 관리자(ADMIN 계급·대부)
         function canApproveInvestigationReportAsCommander() {
             if (!currentUser) return false;
             const rank = currentUser.rank || '';
-            if (rank === 'ADMIN' || currentUserId === '킴유주') return true;
+            if (rank === 'ADMIN' || currentUserId === '대부') return true;
             return rank === '치안총감';
         }
 
@@ -20222,7 +20222,7 @@ ${data.dateStr}
             const category = document.getElementById('noticeCategoryInput').value || '전체공지';
             const title = document.getElementById('noticeTitleInput').value.trim();
             const content = document.getElementById('noticeContentInput').value.trim();
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const timestamp = new Date().toLocaleString('ko-KR');
 
             if (!title || !content) {
@@ -20297,7 +20297,7 @@ ${data.dateStr}
             if (!container) return;
 
             const rank = currentUser ? (currentUser.rank || 'PLAYER') : 'PLAYER';
-            const isAdminUser = currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '킴유주') : false;
+            const isAdminUser = currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '대부') : false;
             const now = new Date().getTime();
             const sevenDaysMs = 7 * 24 * 60 * 60 * 1000;
 
@@ -21045,7 +21045,7 @@ ${data.dateStr}
             const label = fmtWeekRangeLabel(row.start);
             const summary = jobs.map(j => `${j.rank} ${j.name} ${j.amount.toLocaleString()}원`).join('\n');
             if (!confirm(`[${label} 주간] 직책수당을 아래와 같이 등록하시겠습니까?\n(납부 벌금 ${row.pool.toLocaleString()}원 기준)\n\n${summary}\n\n등록 후에는 기존 상여금과 동일하게 "지급완료" 처리 시 계좌에서 차감됩니다.`)) return;
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const now = new Date();
             const updates = {};
             jobs.forEach(j => {
@@ -21211,7 +21211,7 @@ ${data.dateStr}
 
             if (!confirm(`[${rep.suspectName || '피의자'}] 사건 분배금을 ${unpaid.length}명에게 ${sharePerPerson.toLocaleString()}원씩 등록하시겠습니까?${isFlat ? ' (벌금 0원 사건 - 고정 지급)' : (isMinApplied ? ' (균등 분배액이 최소 보장액보다 낮아 최소 보장액 적용)' : '')}\n(${unpaid.join(', ')})\n등록 후에는 기존 상여금과 동일하게 "지급완료" 처리 시 계좌에서 차감됩니다.`)) return;
 
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const now = new Date();
             let updates = {};
             unpaid.forEach(name => {
@@ -21269,7 +21269,7 @@ ${data.dateStr}
 
             if (!confirm(`대기 중인 사건 ${candidates.length}건을 일괄 처리하여, ${names.length}명에게 각각 1건의 상여금으로 등록하시겠습니까?\n(인원당 여러 사건 몫이 합산되어 한 번에 등록됩니다)\n\n${summaryLines}\n\n총 합계: ${grandTotal.toLocaleString()}원`)) return;
 
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const now = new Date();
             let updates = {};
             names.forEach(name => {
@@ -21353,7 +21353,7 @@ ${data.dateStr}
 
             if (!confirm(`[${u.name}]에게 누적 포인트 ${(tier.threshold || 0).toLocaleString()}점 구간 상여금 ${(tier.amount || 0).toLocaleString()}원을 지급 등록하시겠습니까?\n(포인트는 차감되지 않고 그대로 유지됩니다)`)) return;
 
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const now = new Date();
             const newKey = db.ref('rewards_fines').push().key;
             const updates = {};
@@ -21406,7 +21406,7 @@ ${data.dateStr}
                 if (!confirm(`[${name}]님의 대기 중인 사건 ${repIds.length}건을 합산해 ${personTotal.toLocaleString()}원을 상여금으로 등록하시겠습니까?\n등록 후에는 기존 상여금과 동일하게 "지급완료" 처리 시 계좌에서 차감됩니다.`)) return;
             }
 
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const now = new Date();
             const newKey = db.ref('rewards_fines').push().key;
             let updates = {};
@@ -21446,7 +21446,7 @@ ${data.dateStr}
         function registerMonthlyRewardsBonuses(logData, monthLabel, callback) {
             const MONTHLY_RANK_BONUS = [pointConfigCache.weeklyBonusRank1 || 0, pointConfigCache.weeklyBonusRank2 || 0, pointConfigCache.weeklyBonusRank3 || 0];
             const MONTHLY_DEPT_BONUS = [pointConfigCache.weeklyBonusDeptTop || 0, pointConfigCache.weeklyBonusDeptRank2 || 0, pointConfigCache.weeklyBonusDeptRank3 || 0, pointConfigCache.weeklyBonusDeptRank4 || 0];
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const now = new Date();
             let updates = {};
             const addBonus = (name, item, amount) => {
@@ -21519,7 +21519,7 @@ ${data.dateStr}
                 peakTop3: computeMonthlyPeakMinutesTop3(lastMonthRange),
                 deptTop: deptRows[0] || null, // 과거 저장된 로그와의 호환을 위해 1위는 그대로도 남겨둠
                 deptTop4: deptRows,
-                author: currentUser ? currentUser.name : '킴유주',
+                author: currentUser ? currentUser.name : '대부',
                 createdAt: now,
                 timestamp: new Date(now).toLocaleString('ko-KR')
             };
@@ -23088,7 +23088,7 @@ ${data.dateStr}
         }
 
         function generateReport() {
-            const author = currentUser ? currentUser.name : '킴유주';
+            const author = currentUser ? currentUser.name : '대부';
             const suspectName = document.getElementById('reportSuspectName').value.trim();
             const suspectPhone = document.getElementById('reportSuspectPhone').value.trim();
             const jailDeduct = parseInt(document.getElementById('reportJailDeductInput').value) || 0;
@@ -23403,7 +23403,7 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
                 </div>
                 <div class="dx-close" style="position:relative;margin:0 0 2px"><style>#paymentCertCard .dx-close .dt,.dx-page .dx-close .dt{margin:4px 0 0}</style>
                     <div class="dt">${escHtml(d)}</div><div class="org">BLACKOUT</div>
-                    <div class="sg"><div class="rule"></div><div class="who">치안총감 킴유주</div><div class="rule r"></div><div style="width:84px"></div></div>
+                    <div class="sg"><div class="rule"></div><div class="who">치안총감 대부</div><div class="rule r"></div><div style="width:84px"></div></div>
                     ${badge.seal && rep.docNo ? `<img src="${DX_SEAL}" alt="직인" style="position:absolute;right:6px;bottom:2px;width:84px;height:84px">` : ''}
                 </div>
             </div>`;
@@ -23588,7 +23588,7 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
             renderMyPage();
 
             const rank = currentUser ? (currentUser.rank || 'PLAYER') : 'PLAYER';
-            const isAdminUser = currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '킴유주') : false;
+            const isAdminUser = currentUser ? (currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '대부') : false;
 
             // 등록시각(createdAt) 기준 최신순 정렬 - 값이 없는 과거 기록은 배열 순서를 그대로 유지
             let sorted = caseReportsCache.slice().sort((a, b) => (b.createdAt || 0) - (a.createdAt || 0));
@@ -23604,7 +23604,7 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
             let html = '';
             pageItems.forEach(rep => {
                 let cardData = {
-                    author: rep.author || '킴유주', rank: rep.rank || '', suspectName: rep.suspectName || '미확인',
+                    author: rep.author || '대부', rank: rep.rank || '', suspectName: rep.suspectName || '미확인',
                     suspectPhone: rep.suspectPhone || '연락처 없음', crimeTitle: rep.crimeTitle || '기타 사건',
                     finalFine: rep.finalFine || 0, finalJail: rep.finalJail || 0,
                     fineStatusText: rep.fineStatusText || '확인 필요', bailText: rep.bailText || '없음',
@@ -23776,7 +23776,7 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
                 const u = allUsersCache[uid];
                 if (q && !((u.name || '').toLowerCase().includes(q) || uid.toLowerCase().includes(q))) continue;
                 matchCount++;
-                const isMain = (uid === '킴유주');
+                const isMain = (uid === '대부');
 
                 html += `
                     <div class="bg-black p-4 rounded-xl border border-zinc-900 flex flex-col md:flex-row items-start md:items-center justify-between gap-3 text-xs">
@@ -23956,7 +23956,7 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
         }
 
         function deleteUserAccount(uid, name) {
-            if (uid === '킴유주') return;
+            if (uid === '대부') return;
             if (confirm(`[${name}] 계정을 삭제하시겠습니까?`)) {
                 const vacCount = getVacationRequestsOfName(name).length;
                 const alsoVacation = vacCount > 0 && confirm(`[${name}]님 이름으로 등록된 휴가신청 ${vacCount}건이 있습니다.\n계정과 함께 삭제할까요?\n(확인 = 함께 삭제 / 취소 = 휴가신청은 남김)`);
@@ -23981,8 +23981,8 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
             let ids = raw.split(/[,\n]/).map(s => s.trim()).filter(Boolean);
             if (ids.length === 0) { alert('삭제할 계정 ID를 입력해주세요.'); return; }
 
-            if (ids.includes('킴유주')) alert('메인 관리자 계정(킴유주)은 삭제할 수 없어 목록에서 제외합니다.');
-            const targets = [...new Set(ids.filter(id => id !== '킴유주'))];
+            if (ids.includes('대부')) alert('메인 관리자 계정(대부)은 삭제할 수 없어 목록에서 제외합니다.');
+            const targets = [...new Set(ids.filter(id => id !== '대부'))];
             if (targets.length === 0) return;
 
             if (!confirm(`총 ${targets.length}개 계정을 삭제합니다.\n(${targets.join(', ')})\n되돌릴 수 없습니다. 계속하시겠습니까?`)) return;
@@ -24973,7 +24973,7 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
             const rememberMe = document.getElementById('rememberMe').checked;
 
             if (!id || !pw) { alert('아이디와 비밀번호를 입력해주세요.'); return; }
-            if (id === 'admin') id = '킴유주';
+            if (id === 'admin') id = '대부';
 
             db.ref('users/' + id).once('value', (snapshot) => {
                 const userData = snapshot.val();
@@ -25044,7 +25044,7 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
             const dept = currentUser.dept || '인사과';
             const hasAudit = currentUser.hasAuditAuth || false;
             const hasHr = currentUser.hasHrAuth || false;
-            const isAdminUser = currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '킴유주';
+            const isAdminUser = currentUser.isAdmin || rank === 'ADMIN' || rank === '치안총감' || currentUserId === '대부';
             const isSuperAdminUser = isSuperAdmin();
 
             document.getElementById('userInfoText').innerText = `${currentUser.name} (${rank})`;
@@ -25971,7 +25971,7 @@ ${c.coOfficers ? `ㆍ 공동 진행: ${c.coOfficers}\n` : ''}ㆍ 피의자: ${fm
             if (_dxMc.size > 600) _dxMc.clear();
             _dxMc.set(html, h); return h;
         }
-        function dxSignerLabel(m) { return (m.approverTitle || '치안총감') + ' ' + (m.approverName || '킴유주'); }
+        function dxSignerLabel(m) { return (m.approverTitle || '치안총감') + ' ' + (m.approverName || '대부'); }
         function dxTopHtml(m) {
             const kv = (k, v) => `<tr><td class="k">${k}</td><td class="s">|</td><td>${v}</td></tr>`;
             const no = m.docNo ? dxEsc(m.docNo) : '<span style="color:#aaa6a6">발행 시 자동 부여</span>';
